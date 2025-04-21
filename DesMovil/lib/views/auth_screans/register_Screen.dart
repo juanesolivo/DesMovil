@@ -22,24 +22,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   void _register() {
     if (_formKey.currentState!.validate()) {
-      LauthController.signUpUser(
-          context: context,
-          email: _emailController.text,
-          password: _passwordController.text,
-          fullName: _nameController.text,
-      setState( () {
-
-       _formKey.currentState!.reset();
-      })
-      if (_passwordController.text != _confirmPasswordController.text)
-      {
+      if (_passwordController.text != _confirmPasswordController.text) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Las contraseñas no coinciden')),
         );
         return;
       }
-
-      print('Registrar con: ${_emailController.text}');
+      _authController.signUpUser(
+        context: context,
+        email: _emailController.text,
+        password: _passwordController.text,
+        fullName: _nameController.text,
+      );
     }
   }
 
